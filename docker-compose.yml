@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  redis:
+    container_name: redis
+    build:
+      context: .
+      dockerfile: ./docker/redis/Dockerfile
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data
+    tty: true
+    networks:
+      - redis-cluster-networks
+  golang:
+    container_name: golang
+    build:
+      context: .
+      dockerfile: ./docker/golang/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/go/src
+    tty: true
+    env_file:
+      - ./docker/golang/.env
+    networks:
+      - redis-cluster-networks
+
+networks:
+  redis-cluster-networks:
