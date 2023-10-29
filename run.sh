@@ -7,7 +7,7 @@ case "$1" in
     docker compose up -d
 
     # Run server
-    echo "(run.sh) [$DATE] Server is running..."
+    echo "(run.sh) [$DATE] Backend server is running..."
     cd src
     go run main.go
     ;;

@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   redis:
-    container_name: redis
+    container_name: redis-cluster-study-redis
     build:
       context: .
       dockerfile: ./docker/redis/Dockerfile
@@ -14,20 +14,24 @@ services:
     tty: true
     networks:
       - redis-cluster-networks
-  golang:
-    container_name: golang
+  postgres:
+    container_name: redis-cluster-study-postgres
     build:
       context: .
-      dockerfile: ./docker/golang/Dockerfile
+      dockerfile: ./docker/postgres/Dockerfile
     ports:
-      - 8080:8080
+      - 5432:5432
     volumes:
-      - ./src:/go/src
+      - ./postgres/data:/var/lib/postgresql/data
     tty: true
-    env_file:
-      - ./docker/golang/.env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=Asia/Tokyo
     networks:
       - redis-cluster-networks
 
 networks:
   redis-cluster-networks:
+    driver: bridge
