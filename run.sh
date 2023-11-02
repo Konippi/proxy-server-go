@@ -6,17 +6,17 @@ DATE=$(date '+%Y-%m-%d %H:%M:%S')
 case "$1" in
 "")
     # Run docker container
-    echo "(run.sh) [$DATE] Docker conatiner is running..."
+    echo "(run.sh) [$DATE] Running Docker conatiners..."
     docker compose up -d
 
     # Run server
-    echo "(run.sh) [$DATE] Backend server is running..."
+    echo "(run.sh) [$DATE] Running backend server..."
     cd src
     go run main.go
     ;;
 "stop")
     # Stop docker container
-    echo "(run.sh) [$DATE] Docker conatiner is stopping..."
+    echo "(run.sh) [$DATE] Stopping docker conatiners..."
     docker compose down
     ;;
 "psql")
