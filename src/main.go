@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"github.com/redis/go-redis/v9"
+)
 
 func main() {
-	fmt.Println("Hello, world!")
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
 }
