@@ -1,4 +1,4 @@
 FROM redis:latest
 
 CMD [ "redis-server", "/usr/local/etc/redis/redis.conf"]
-EXPOSE 6379
+EXPOSE ${REDIS_PORT}

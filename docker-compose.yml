@@ -7,28 +7,32 @@ services:
       context: .
       dockerfile: ./docker/redis/Dockerfile
     ports:
-      - 6379:6379
+      - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./redis/data:/data
     tty: true
     networks:
       - redis-cluster-networks
+    environment:
+      - TZ=Asia/Tokyo
+      - REDIS_PORT=${REDIS_PORT}
   postgres:
     container_name: redis-cluster-study-postgres
     build:
       context: .
       dockerfile: ./docker/postgres/Dockerfile
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
     tty: true
     environment:
+      - TZ=Asia/Tokyo
+      - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-      - TZ=Asia/Tokyo
     networks:
       - redis-cluster-networks
 
