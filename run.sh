@@ -11,7 +11,7 @@ case "$1" in
 
     # Run server
     echo "(run.sh) [$DATE] Running backend server..."
-    cd src
+    cd cmd/app
     go run main.go
     ;;
 "stop")
@@ -23,5 +23,10 @@ case "$1" in
     # Connect postgresql
     echo "(run.sh) [$DATE] Connecting postgresql..."
     docker exec -it redis-cluster-study-postgres bash
+    ;;
+"golint")
+    # Run golangci-lint
+    echo "(run.sh) [$DATE] Running golangci-lint..."
+    golangci-lint run
     ;;
 esac

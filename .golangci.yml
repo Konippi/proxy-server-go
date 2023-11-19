@@ -1,0 +1,14 @@
+issues:
+  new: true
+
+linters:
+  fast: false
+  disable-all: true
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - typecheck
+
+run:
+  timeout: 10m

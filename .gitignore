@@ -1,6 +1,3 @@
-# db
-redis/data
-postgres/data
-
-# env
-.env
+# db data
+docker/redis/data
+docker/mongo/data
