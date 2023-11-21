@@ -11,8 +11,8 @@
             "matchPackagePatterns": [
                 "^golang.org/x/"
             ],
-            "schedule": [
-                "on the first day of the month"
+            "automergeSchedule": [
+                "every weekend"
             ]
         }
     ]
