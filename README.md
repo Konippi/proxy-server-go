@@ -1,2 +1,2 @@
-# JWT Auth Server Go
-This is an authorization server created by golang
+# OAuth Server Go
+This is an OAuth2.0 authorization server created by golang.
