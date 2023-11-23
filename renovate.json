@@ -10,7 +10,7 @@
   "packageRules": [
     {
       "matchPackagePatterns": [
-          "^golang.org/x/"
+        "^golang.org/x/"
       ]
     }
   ]
