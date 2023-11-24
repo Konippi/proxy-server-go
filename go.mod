@@ -1,6 +1,6 @@
 module github.com/Konippi/oauth-server-go
 
-go 1.21.4
+go 1.21
 
 require (
 	github.com/cockroachdb/errors v1.11.1
