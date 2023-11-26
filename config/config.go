@@ -11,6 +11,7 @@ import (
 
 type Config interface {
 	AUTH_HOST() string
+	AUTH_PORT() string
 }
 
 func init() {
@@ -35,10 +36,18 @@ func loadEnv() {
 
 func AUTH_HOST() string {
 	envName := "AUTH_HOST"
-	if v, ok := os.LookupEnv(envName); ok {
-		return v
+	v, ok := os.LookupEnv(envName)
+	if !ok {
+		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
 	}
-	errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
+	return v
+}
 
-	return "127.0.0.1"
+func AUTH_PORT() string {
+	envName := "AUTH_PORT"
+	v, ok := os.LookupEnv(envName)
+	if !ok {
+		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
+	}
+	return v
 }
