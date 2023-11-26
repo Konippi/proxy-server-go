@@ -1,12 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
-	"github.com/Konippi/oauth-server-go/pkg/err"
+	"github.com/Konippi/oauth-server-go/pkg/customerr"
 	"github.com/cockroachdb/errors"
 	"github.com/joho/godotenv"
-	"golang.org/x/exp/slog"
 )
 
 type Config interface {
@@ -34,9 +34,11 @@ func loadEnv() {
 }
 
 func AUTH_HOST() string {
-	v, ok := os.LookupEnv("AUTH_HOST")
-	if !ok {
-		errors.Wrap(err.ErrNotFoundEnv, slog.Error("AUTH_HOST is not found in env"))
+	envName := "AUTH_HOST"
+	if v, ok := os.LookupEnv(envName); ok {
+		return v
 	}
-	return v
+	errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
+
+	return "127.0.0.1"
 }

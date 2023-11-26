@@ -1,4 +1,4 @@
-package err
+package customerr
 
 import (
 	"github.com/cockroachdb/errors"
