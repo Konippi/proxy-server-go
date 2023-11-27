@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   redis:
-    container_name: oauth-server-go-redis
+    container_name: proxy-server-go-redis
     build:
       context: .
       dockerfile: ./docker/redis/Dockerfile
@@ -13,12 +13,12 @@ services:
       - ./docker/redis/data:/data
     tty: true
     networks:
-      - oauth-server-go-network
+      - proxy-server-go-network
     environment:
       - TZ=Asia/Tokyo
       - REDIS_PORT=${REDIS_PORT}
   mongo:
-    container_name: oauth-server-go-mongo
+    container_name: proxy-server-go-mongo
     build:
       context: .
       dockerfile: ./docker/mongo/Dockerfile
@@ -32,8 +32,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     networks:
-      - oauth-server-go-network
+      - proxy-server-go-network
 
 networks:
-  oauth-server-go-network:
+  proxy-server-go-network:
     driver: bridge

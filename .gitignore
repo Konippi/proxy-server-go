@@ -3,9 +3,3 @@
 ###################
 docker/redis/data
 docker/mongo/data
-
-###################
-# env
-###################
-.env.*
-!.env.development

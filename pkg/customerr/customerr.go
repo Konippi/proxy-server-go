@@ -5,5 +5,6 @@ import (
 )
 
 var (
+	// env
 	ErrNotFoundEnv = errors.New("Not Found Env")
 )

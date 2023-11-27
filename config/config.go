@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Konippi/oauth-server-go/pkg/customerr"
+	"github.com/Konippi/proxy-server-go/pkg/customerr"
 	"github.com/cockroachdb/errors"
 	"github.com/joho/godotenv"
 )
 
 type Config interface {
-	AUTH_HOST() string
-	AUTH_PORT() string
+	PROXY_HOST() string
+	PROXY_PORT() string
 }
 
 func init() {
@@ -19,23 +19,13 @@ func init() {
 }
 
 func loadEnv() {
-	envPath := "../env/.env"
-
-	switch os.Getenv("ENV") {
-	case "development":
-		envPath += ".development"
-	case "staging":
-		envPath += ".staging"
-	case "production":
-		envPath += ".production"
-	default:
-		envPath += ".development"
+	if err := godotenv.Load(); err != nil {
+		errors.Wrap(err, "Error loading env file")
 	}
-	godotenv.Load(envPath)
 }
 
-func AUTH_HOST() string {
-	envName := "AUTH_HOST"
+func PROXY_HOST() string {
+	envName := "PROXY_HOST"
 	v, ok := os.LookupEnv(envName)
 	if !ok {
 		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
@@ -43,8 +33,8 @@ func AUTH_HOST() string {
 	return v
 }
 
-func AUTH_PORT() string {
-	envName := "AUTH_PORT"
+func PROXY_PORT() string {
+	envName := "PROXY_PORT"
 	v, ok := os.LookupEnv(envName)
 	if !ok {
 		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))

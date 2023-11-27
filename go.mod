@@ -1,4 +1,4 @@
-module github.com/Konippi/oauth-server-go
+module github.com/Konippi/proxy-server-go
 
 go 1.21
 
