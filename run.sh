@@ -24,9 +24,14 @@ case "$1" in
     echo "(run.sh) [$DATE] Connecting postgresql..."
     docker exec -it redis-cluster-study-postgres bash
     ;;
-"golint")
+"lint")
     # Run golangci-lint
     echo "(run.sh) [$DATE] Running golangci-lint..."
     golangci-lint run
+    ;;
+"fmt")
+    # Run gofmt
+    echo "(run.sh) [$DATE] Running gofmt..."
+    gofmt -w .
     ;;
 esac
