@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Konippi/proxy-server-go/pkg/customerr"
+	"github.com/Konippi/proxy-server-go/internal/customerr"
 	"github.com/cockroachdb/errors"
 	"github.com/joho/godotenv"
 )

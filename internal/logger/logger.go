@@ -3,7 +3,7 @@ package logger
 import (
 	"os"
 
-	"github.com/Konippi/proxy-server-go/pkg/env"
+	"github.com/Konippi/proxy-server-go/internal/env"
 	"golang.org/x/exp/slog"
 )
 
