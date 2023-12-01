@@ -1,10 +1,10 @@
 package logger
 
 import (
+	"log/slog"
 	"os"
 
 	"github.com/Konippi/proxy-server-go/internal/env"
-	"golang.org/x/exp/slog"
 )
 
 func Initialize() {

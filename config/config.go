@@ -1,43 +1,36 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
-	"os"
+	"io"
+	"log/slog"
 
-	"github.com/Konippi/proxy-server-go/internal/customerr"
 	"github.com/cockroachdb/errors"
 	"github.com/joho/godotenv"
 )
 
-type Config interface {
-	PROXY_HOST() string
-	PROXY_PORT() string
+type Config struct {
+	ProxyHost string
+	ProxyPort string
 }
 
 func init() {
 	loadEnv()
 }
 
-func loadEnv() {
-	if err := godotenv.Load(); err != nil {
-		errors.Wrap(err, "Error loading env file")
+func loadEnv() error {
+	err := godotenv.Load()
+	if err != nil {
+		return errors.Wrap(err, "Error loading env file")
 	}
+	slog.Info("Successfully loaded env file")
+	return nil
 }
 
-func PROXY_HOST() string {
-	envName := "PROXY_HOST"
-	v, ok := os.LookupEnv(envName)
-	if !ok {
-		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
-	}
-	return v
-}
-
-func PROXY_PORT() string {
-	envName := "PROXY_PORT"
-	v, ok := os.LookupEnv(envName)
-	if !ok {
-		errors.Wrap(customerr.ErrNotFoundEnv, fmt.Sprintf("Not Found Env: %s", envName))
-	}
-	return v
+func (c *Config) Dump(w io.Writer) error {
+	fmt.Fprint(w, "config: ")
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", "  ")
+	return enc.Encode(c)
 }
