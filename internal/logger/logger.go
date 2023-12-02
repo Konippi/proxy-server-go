@@ -7,7 +7,7 @@ import (
 	"github.com/Konippi/proxy-server-go/internal/env"
 )
 
-func Initialize() {
+func Init() {
 	lebel := slog.LevelInfo
 	if env.NewEnvProvider().Get() == env.Development {
 		lebel = slog.LevelDebug
