@@ -1,36 +1,37 @@
 version: "3.8"
 
 services:
+  # server
+  server:
+    container_name: proxy-server-go-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/server
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ENV=development
+    networks:
+      - proxy-server-go-network
+
+  # redis
   redis:
     container_name: proxy-server-go-redis
     build:
-      context: .
-      dockerfile: ./docker/redis/Dockerfile
+      context: ./docker/redis
+      dockerfile: Dockerfile
     ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
+      - 6379:6379
     volumes:
       - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./docker/redis/data:/data
     tty: true
-    networks:
-      - proxy-server-go-network
     environment:
       - TZ=Asia/Tokyo
-      - REDIS_PORT=${REDIS_PORT}
-  mongo:
-    container_name: proxy-server-go-mongo
-    build:
-      context: .
-      dockerfile: ./docker/mongo/Dockerfile
-    ports:
-      - ${MONGO_PORT}:${MONGO_PORT}
-    volumes:
-      - ./docker/mongo/data:/data/db
-    restart: always
-    environment:
-      - TZ=Asia/Tokyo
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     networks:
       - proxy-server-go-network
 

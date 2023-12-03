@@ -1,18 +1,12 @@
-# export env variables
-# export $(cat .env | grep -v "#" | xargs)
+#!/bin/bash -eu
 
 DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
 case "$1" in
 "")
     # Run docker container
-    echo "(run.sh) [$DATE] Running Docker conatiners..."
+    echo "(run.sh) [$DATE] Starting Docker conatiners..."
     docker compose up -d
-
-    # Run server
-    echo "(run.sh) [$DATE] Running backend server..."
-    cd cmd/app
-    go run main.go
     ;;
 "stop")
     # Stop docker container
