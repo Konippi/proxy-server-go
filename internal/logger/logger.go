@@ -8,14 +8,14 @@ import (
 )
 
 func Init() {
-	lebel := slog.LevelInfo
+	level := slog.LevelInfo
 	if env.NewEnvProvider().Get() == env.Development {
-		lebel = slog.LevelDebug
+		level = slog.LevelDebug
 	}
 
 	opts := &slog.HandlerOptions{
 		AddSource: true,
-		Level:     lebel,
+		Level:     level,
 	}
 
 	h := slog.NewJSONHandler(os.Stdout, opts)
