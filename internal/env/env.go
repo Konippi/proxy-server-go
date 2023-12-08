@@ -12,6 +12,19 @@ const (
 	Production
 )
 
+func (e Environment) String() string {
+	switch e {
+	case Development:
+		return "development"
+	case Staging:
+		return "staging"
+	case Production:
+		return "production"
+	default:
+		return "development"
+	}
+}
+
 type EnvProvider interface {
 	Get() Environment
 }
@@ -22,7 +35,7 @@ func NewEnvProvider() EnvProvider {
 	return &envProvider{}
 }
 
-func (e envProvider) Get() Environment {
+func (ep envProvider) Get() Environment {
 	switch os.Getenv("ENV") {
 	case "development":
 		return Development

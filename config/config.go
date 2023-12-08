@@ -1,36 +1,25 @@
 package config
 
 import (
-	"encoding/json"
-	"fmt"
-	"io"
 	"log/slog"
 
-	"github.com/cockroachdb/errors"
-	"github.com/joho/godotenv"
+	"github.com/Konippi/proxy-server-go/internal/yml"
 )
 
 type Config struct {
-	ProxyHost string
-	ProxyPort string
+	Server struct {
+		Host string `yaml:"host"`
+		Port string `yaml:"port" default:"8080"`
+	} `yaml:"server"`
 }
 
-func init() {
-	loadEnv()
-}
-
-func loadEnv() error {
-	err := godotenv.Load()
+func Init() {
+	f, err := yml.LoadYAML()
 	if err != nil {
-		return errors.Wrap(err, "Error loading env file")
+		slog.Error("Failed to initialize config", err)
 	}
-	slog.Info("Successfully loaded env file")
-	return nil
-}
-
-func (c *Config) Dump(w io.Writer) error {
-	fmt.Fprint(w, "config: ")
-	enc := json.NewEncoder(w)
-	enc.SetIndent("", "  ")
-	return enc.Encode(c)
+	err = yml.Deserialize(f, &Config{})
+	if err != nil {
+		slog.Error("Failed to initialize config", err)
+	}
 }
