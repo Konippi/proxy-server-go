@@ -13,14 +13,16 @@ func RootDir() (string, error) {
 		return "", errors.New("Failed to get current path")
 	}
 	currentDir := filepath.Dir(currentPath)
-	p := filepath.Join(currentDir, "..", "..")
-	return p, nil
+	d := filepath.Join(currentDir, "..", "..")
+	return d, nil
 }
 
-func CallerPath() (string, error) {
-	_, p, _, ok := runtime.Caller(1)
-	if !ok {
-		return "", errors.New("Failed to get caller path")
+func LocalPath(relPathFromRoot string) (string, error) {
+	relPathFromRoot = filepath.Clean(relPathFromRoot)
+	rootDir, err := RootDir()
+	if err != nil {
+		return "", errors.Wrap(err, "Failed to get root dir")
 	}
+	p := filepath.Join(rootDir, relPathFromRoot)
 	return p, nil
 }
