@@ -19,6 +19,8 @@ ARG GOARCH=amd64
 ARG CC=x86_64-linux-gnu-gcc
 RUN go build -ldflags="-s -w -linkmode external -extldflags -static" -o /server/bin ./cmd/server
 
+CMD ["air", "-c", "docker/.air.toml"]
+
 # runtime
 FROM scratch AS runtime
 
