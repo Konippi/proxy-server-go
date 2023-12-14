@@ -1,25 +1,33 @@
 package config
 
 import (
-	"log/slog"
+	"fmt"
 
-	"github.com/Konippi/proxy-server-go/internal/yml"
+	"github.com/Konippi/proxy-server-go/pkg/env"
+	"github.com/Konippi/proxy-server-go/pkg/path"
+	"github.com/Konippi/proxy-server-go/pkg/yml"
+	"github.com/cockroachdb/errors"
 )
 
 type Config struct {
 	Server struct {
-		Host string `yaml:"host"`
+		Host string `yaml:"host" default:"127.0.0.1"`
 		Port string `yaml:"port" default:"8080"`
 	} `yaml:"server"`
 }
 
-func Init() {
-	f, err := yml.LoadYAML()
+func Init() (Config, error) {
+	envStr := env.NewEnvProvider().Get().String()
+	p, err := path.LocalPath(fmt.Sprintf("config/yml/config.%s.yml", envStr))
 	if err != nil {
-		slog.Error("Failed to initialize config", err)
+		return Config{}, errors.Wrap(err, "Failed to initialize config")
 	}
-	err = yml.Deserialize(f, &Config{})
+
+	var cfg Config
+	err = yml.Deserialize(p, &cfg)
 	if err != nil {
-		slog.Error("Failed to initialize config", err)
+		return cfg, errors.Wrap(err, "Failed to initialize config")
 	}
+
+	return cfg, nil
 }
