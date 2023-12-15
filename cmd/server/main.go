@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// start server
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, r) })
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, r.Host) })
 	server := &http.Server{
 		Addr:              fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port),
 		ReadHeaderTimeout: 20 * time.Second,

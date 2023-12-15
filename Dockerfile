@@ -28,6 +28,6 @@ ENV TZ Asia/Tokyo
 
 COPY --from=builder /server/bin /server/bin
 
-EXPOSE 8080
+EXPOSE 8888
 
 CMD ["/server/bin"]
