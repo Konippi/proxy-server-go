@@ -26,7 +26,7 @@ func Init() (Config, error) {
 	var cfg Config
 	err = yml.Deserialize(p, &cfg)
 	if err != nil {
-		return cfg, errors.Wrap(err, "Failed to initialize config")
+		return Config{}, errors.Wrap(err, "Failed to initialize config")
 	}
 
 	return cfg, nil
