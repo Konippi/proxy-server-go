@@ -33,4 +33,11 @@ case "$1" in
     gofmt -w .
     exit 0
     ;;
+"mkcert")
+    # Run mkcert
+    echo "(run.sh) [$DATE] Creating a pair of certificate and key..."
+    mkcert -install
+    mkcert -cert-file ./docker/nginx/ssl/$2.pem -key-file ./docker/nginx/ssl/$2-key.pem $2
+    exit 0
+    ;;
 esac
