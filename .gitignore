@@ -3,3 +3,6 @@ docker/redis/data
 
 # air
 tmp
+
+# certificate and key
+docker/nginx/ssl/*.pem
