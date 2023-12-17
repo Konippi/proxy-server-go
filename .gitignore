@@ -5,4 +5,4 @@ docker/redis/data
 tmp
 
 # certificate and key
-docker/nginx/ssl/*.pem
+docker/server/ssl/*.pem
