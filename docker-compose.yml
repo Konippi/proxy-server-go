@@ -38,4 +38,4 @@ services:
 
 networks:
   proxy-server-go-network:
-    driver: bridge
+    external: true
