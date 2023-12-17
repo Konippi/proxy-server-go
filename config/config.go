@@ -11,8 +11,10 @@ import (
 
 type Config struct {
 	Server struct {
-		Host string `yaml:"host" default:"127.0.0.1"`
-		Port string `yaml:"port" default:"8080"`
+		Host           string `yaml:"host" default:"127.0.0.1"`
+		Port           string `yaml:"port" default:"8080"`
+		CertFilePath   string `yaml:"certFilePathFromRoot" default:""`
+		SecKeyFilePath string `yaml:"secKeyFilePathFromRoot" default:""`
 	} `yaml:"server"`
 }
 

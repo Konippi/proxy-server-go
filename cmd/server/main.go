@@ -27,5 +27,5 @@ func main() {
 		ReadHeaderTimeout: 20 * time.Second,
 	}
 	slog.Info("Server started", slog.String("host", cfg.Server.Host), slog.String("port", cfg.Server.Port))
-	server.ListenAndServe()
+	server.ListenAndServeTLS(cfg.Server.CertFilePath, cfg.Server.SecKeyFilePath)
 }

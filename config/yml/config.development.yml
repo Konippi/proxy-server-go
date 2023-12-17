@@ -1,3 +1,5 @@
 server:
   host: 0.0.0.0
   port: 8888
+  certFilePathFromRoot: docker/proxy-server/ssl/localhost.pem
+  secKeyFilePathFromRoot: docker/proxy-server/ssl/localhost-key.pem
