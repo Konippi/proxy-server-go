@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/Konippi/proxy-server-go/config"
-	"github.com/Konippi/proxy-server-go/pkg/logger"
+	"github.com/Konippi/proxy-server-go/internal/logger"
 )
 
 func main() {

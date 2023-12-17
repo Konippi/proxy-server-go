@@ -37,7 +37,7 @@ case "$1" in
     # Run mkcert
     echo "(run.sh) [$DATE] Creating a pair of certificate and key..."
     mkcert -install
-    mkcert -cert-file ./docker/server/ssl/$2.pem -key-file ./docker/server/ssl/$2-key.pem $2
+    mkcert -cert-file ./docker/proxy-server/ssl/$2.pem -key-file ./docker/proxy-server/ssl/$2-key.pem $2
     exit 0
     ;;
 esac

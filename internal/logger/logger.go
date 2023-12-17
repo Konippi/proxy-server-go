@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/Konippi/proxy-server-go/pkg/env"
+	"github.com/Konippi/proxy-server-go/internal/env"
 )
 
 func Init() {

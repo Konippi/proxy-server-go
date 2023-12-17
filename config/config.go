@@ -3,9 +3,9 @@ package config
 import (
 	"fmt"
 
-	"github.com/Konippi/proxy-server-go/pkg/env"
-	"github.com/Konippi/proxy-server-go/pkg/path"
-	"github.com/Konippi/proxy-server-go/pkg/yml"
+	"github.com/Konippi/proxy-server-go/internal/env"
+	"github.com/Konippi/proxy-server-go/internal/path"
+	"github.com/Konippi/proxy-server-go/internal/yml"
 	"github.com/cockroachdb/errors"
 )
 
