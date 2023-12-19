@@ -4,40 +4,35 @@ DATE=$(date '+%Y-%m-%d %H:%M:%S')
 
 case "$1" in
 "")
-    # Run docker container
-    echo "(run.sh) [$DATE] Starting Docker conatiners..."
-    docker compose up -d
+    . ./script/docker.sh
+    run_container
     exit 0
     ;;
 "stop")
-    # Stop docker container
-    echo "(run.sh) [$DATE] Stopping docker conatiners..."
-    docker compose down
+    . ./script/docker.sh
+    stop_container
     exit 0
     ;;
 "psql")
-    # Connect postgresql
-    echo "(run.sh) [$DATE] Connecting postgresql..."
-    docker exec -it redis-cluster-study-postgres bash
+    . ./script/docker.sh
+    connect_psql
     exit 0
     ;;
 "lint")
-    # Run golangci-lint
-    echo "(run.sh) [$DATE] Running golangci-lint..."
-    golangci-lint run
+    . ./script/golang.sh
+    lint
     exit 0
     ;;
 "fmt")
-    # Run gofmt
-    echo "(run.sh) [$DATE] Running gofmt..."
-    gofmt -w .
+    . ./script/golang.sh
+    fmt
     exit 0
     ;;
-"cert")
-    # Run mkcert
-    echo "(run.sh) [$DATE] Creating a pair of certificate and key..."
-    mkcert -install
-    mkcert -cert-file ./docker/proxy-server/ssl/$2.pem -key-file ./docker/proxy-server/ssl/$2-key.pem $2
+"fmt-lint")
+    . ./script/golang.sh
+    fmt
+    wait
+    lint
     exit 0
     ;;
 esac
