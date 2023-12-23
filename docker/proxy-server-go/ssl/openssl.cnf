@@ -1,0 +1,31 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir = /etc/ssl/ca
+certs = $dir/certs
+crl_dir = $dir/crl
+database = $dir/index.txt
+new_certs_dir = $dir/newcerts
+certificate = $dir/cert.pem
+serial = $dir/serial
+crl = $dir/crl.pem
+private_key = $dir/private/cert-key.pem
+RANDFILE = $dir/.rand
+
+name_opt = ca_default
+cert_opt = ca_default
+
+default_days = 365
+default_crl_days = 30
+default_md = sha256
+preserve = no
+policy = policy_match
+
+[policy_match]
+countryName = match
+stateOrProvinceName = match
+organizationName = match
+organizationalUnitName = optional
+commonName = supplied
+emailAddress = optional

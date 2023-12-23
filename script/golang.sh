@@ -2,12 +2,14 @@
 
 # Run gofmt
 function fmt() {
-    echo "(run.sh) [$DATE] Running gofmt..."
+    . echo.sh
+    echo_log $0 "Running gofmt..."
     gofmt -w　.
 }
 
 # Run golangci-lint
 function lint() {
-    echo "(run.sh) [$DATE] Running golangci-lint..."
+    . echo.sh
+    echo_log $0 "Running golangci-lint..."
     golangci-lint run
 }

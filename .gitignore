@@ -5,4 +5,4 @@ docker/redis/data
 tmp
 
 # certificate and key
-docker/proxy-server/ssl/*.pem
+docker/proxy-server-go/ssl/*.pem

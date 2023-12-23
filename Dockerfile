@@ -17,9 +17,9 @@ ARG CGO_ENABLED=0
 ARG GOOS=linux
 ARG GOARCH=amd64
 ARG CC=x86_64-linux-gnu-gcc
-RUN go build -ldflags="-s -w -linkmode external -extldflags -static" -o /server/bin ./cmd/server
+RUN go build -ldflags="-s -w -linkmode external -extldflags -static" -o /server/bin ./cmd/proxy-server-go
 
-CMD ["air", "-c", "docker/proxy-server/.air.toml"]
+CMD ["air", "-c", "docker/proxy-server-go/.air.toml"]
 
 # runtime
 FROM scratch AS runtime

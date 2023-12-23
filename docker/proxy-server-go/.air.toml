@@ -2,7 +2,7 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-cmd = "go build -o ./tmp/server -tags development ./cmd/server"
+cmd = "go build -o ./tmp/server -tags development ./cmd/proxy-server-go"
 bin = "./tmp/server"
 full_bin = ""
 delay = 1000
