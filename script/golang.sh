@@ -4,6 +4,7 @@
 function fmt() {
     . echo.sh
     echo_log $0 "Running gofmt..."
+
     gofmt -w　.
 }
 
@@ -11,5 +12,6 @@ function fmt() {
 function lint() {
     . echo.sh
     echo_log $0 "Running golangci-lint..."
+
     golangci-lint run
 }
