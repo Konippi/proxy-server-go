@@ -1,7 +1,7 @@
 # build
 ARG GO_VERSION=1.21.4
 
-FROM golang:${GO_VERSION}-bullseye AS builder
+FROM golang:${GO_VERSION}-bullseye AS build
 LABEL version="1.0"
 
 WORKDIR /server
@@ -26,7 +26,7 @@ FROM scratch AS runtime
 
 ENV TZ Asia/Tokyo
 
-COPY --from=builder /server/bin /server/bin
+COPY --from=build /server/bin /server/bin
 
 EXPOSE 8888
 

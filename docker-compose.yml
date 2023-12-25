@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: builder
+      target: build
     ports:
       - 8888:8888
     volumes:
