@@ -1,5 +1,5 @@
 server:
   host: 0.0.0.0
   port: 8888
-  certFilePathFromRoot: docker/proxy-server-go/ssl/localhost.pem
-  secKeyFilePathFromRoot: docker/proxy-server-go/ssl/localhost-key.pem
+  certFilePathFromRoot: cert/localhost/localhost-cert.pem
+  secKeyFilePathFromRoot: cert/localhost/localhost-key.pem

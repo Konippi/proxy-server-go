@@ -16,7 +16,7 @@ func Deserialize[T any](path string, tStruct *T) error {
 
 	err = yaml.NewDecoder(f).Decode(&tStruct)
 	if err != nil {
-		return errors.Wrap(err, "Failed to decode target file")
+		return errors.Wrap(err, "Failed to decode yml file")
 	}
 	return nil
 }

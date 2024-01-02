@@ -9,7 +9,7 @@ import (
 	"github.com/cockroachdb/errors"
 )
 
-type Config struct {
+type config struct {
 	Server struct {
 		Host           string `yaml:"host" default:"127.0.0.1"`
 		Port           string `yaml:"port" default:"8080"`
@@ -18,18 +18,18 @@ type Config struct {
 	} `yaml:"server"`
 }
 
-func Init() (Config, error) {
+func Init() (*config, error) {
 	envStr := env.NewEnvProvider().Get().String()
 	p, err := path.LocalPath(fmt.Sprintf("config/yml/config.%s.yml", envStr))
 	if err != nil {
-		return Config{}, errors.Wrap(err, "Failed to initialize config")
+		return nil, errors.Wrap(err, "Failed to get path to config")
 	}
 
-	var cfg Config
+	var cfg config
 	err = yml.Deserialize(p, &cfg)
 	if err != nil {
-		return Config{}, errors.Wrap(err, "Failed to initialize config")
+		return nil, errors.Wrap(err, "Failed to deserialize config")
 	}
 
-	return cfg, nil
+	return &cfg, nil
 }
