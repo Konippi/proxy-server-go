@@ -40,7 +40,7 @@ func main() {
 	}
 
 	if tlsErr != nil {
-		slog.Error("Server started without TLS due to missing certficate or private key")
+		slog.Error("Server started without TLS due to missing certificate or private key")
 		server.ListenAndServe()
 	}
 
