@@ -1,16 +1,32 @@
 package main
 
 import (
-	"fmt"
 	"log/slog"
 	"net/http"
-	"time"
+	"net/http/httputil"
 
 	"github.com/Konippi/proxy-server-go/config"
 	"github.com/Konippi/proxy-server-go/internal/logger"
 	"github.com/Konippi/proxy-server-go/internal/path"
 	"github.com/cockroachdb/errors"
 )
+
+func run(host string, port string, certFilePath string, secKeyFilePath string) {
+	director := func(req *http.Request) {
+		req.URL.Scheme = "http"
+		req.URL.Host = "localhost:8080"
+	}
+	handler := &httputil.ReverseProxy{Director: director}
+	server := &http.Server{
+		Addr:    host + ":" + port,
+		Handler: handler,
+	}
+
+	slog.Info("Server started", slog.String("host", host), slog.String("port", port))
+	if err := server.ListenAndServeTLS(certFilePath, secKeyFilePath); err != nil {
+		slog.Error("Server stopped", err)
+	}
+}
 
 func main() {
 	// initialize logger
@@ -20,13 +36,6 @@ func main() {
 	cfg, err := config.Init()
 	if err != nil {
 		slog.Error("Failed to initialize config", err)
-	}
-
-	// start server
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, r.Host) })
-	server := &http.Server{
-		Addr:              fmt.Sprintf("%s:%s", cfg.Server.Host, cfg.Server.Port),
-		ReadHeaderTimeout: 20 * time.Second,
 	}
 
 	var tlsErr error
@@ -40,12 +49,8 @@ func main() {
 	}
 
 	if tlsErr != nil {
-		slog.Error("Server started without TLS due to missing certificate or private key")
-		server.ListenAndServe()
+		slog.Error("Server started without TLS due to missing certificate or private key", tlsErr)
 	}
 
-	slog.Info("Server started", slog.String("host", cfg.Server.Host), slog.String("port", cfg.Server.Port))
-	if err := server.ListenAndServeTLS(certFilePath, secKeyFilePath); err != nil {
-		slog.Error("Server stopped", err)
-	}
+	run(cfg.Server.Host, cfg.Server.Port, certFilePath, secKeyFilePath)
 }
