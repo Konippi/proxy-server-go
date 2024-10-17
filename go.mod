@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/cockroachdb/errors v1.11.1
-	github.com/redis/go-redis/v9 v9.3.0
+	github.com/redis/go-redis/v9 v9.7.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
